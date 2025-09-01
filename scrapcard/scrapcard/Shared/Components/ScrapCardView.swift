@@ -8,26 +8,44 @@
 import SwiftUI
 
 struct Scrapcard: View {
-  let title: String
+  let date: Date
   let text: String
   
     var body: some View {
-      VStack(spacing: 8) {
-        Text(title)
-          .font(Font.custom("Sen-Regular", size: 18))
-        Text(text)
-          .font(Font.custom("Sen-Regular", size: 18))
+      VStack(spacing: 16) {
+        HStack(alignment: .top, spacing: 0) {
+          VStack(alignment: .leading, spacing: 4) {
+            Text(date.formattedMMddyyyy())
+              .font(Font.custom("Sen-Regular", size: 20))
+            Line()
+          }
+          //          Profile image
+          Rectangle()
+            .stroke(Color.textPrimary, lineWidth: 1)
+            .frame(width: 64, height: 64)
+        }
+        VStack(spacing: 4) {
+          Text(text)
+            .font(Font.custom("Sen-Regular", size: 20))
+          Line()
+        }
+        Spacer()
+        Text("SCRAPCARD")
+          .font(Font.custom("Sen-Regular", size: 14))
       }
-      .frame(maxWidth: 362,maxHeight: 575)
-      .background {
-          Color.white
-      }
+      .padding(24)
+      .frame(width: 363, height: 575, alignment: .center)
+      .background(.white)
+
+      .cornerRadius(3)
+      .shadow(color: .black.opacity(0.1), radius: 3, x: -2, y: 4)
+      .foregroundStyle(Color.textPrimary)
     }
 }
 
 #Preview {
     VStack {
-      Scrapcard(title: "Card Preview", text: "Today I went to the grocery store.")
+      Scrapcard(date: Date(), text: "Today I went to the grocery store.")
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background {

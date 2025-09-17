@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct Scrapcard: View {
+  @State var vertical: Double = 0
+  @State var horizontal: Double = 0
+  
   let date: Date
   let text: String
   
@@ -36,10 +39,26 @@ struct Scrapcard: View {
       .padding(24)
       .frame(width: 363, height: 575, alignment: .center)
       .background(.white)
-
       .cornerRadius(3)
       .shadow(color: .black.opacity(0.1), radius: 3, x: -2, y: 4)
       .foregroundStyle(Color.textPrimary)
+      .rotation3DEffect(.degrees(-vertical), axis: (x: 1, y:0, z: 0))
+      .rotation3DEffect(.degrees(-horizontal), axis: (x: 0, y: 1, z: 0))
+      .gesture(
+        DragGesture(minimumDistance: 0)
+          .onChanged { value in
+            withAnimation {
+              vertical = min(max(Double(value.translation.height / 20), -20), 20)
+              horizontal = min(max(Double(value.translation.width / 20), -15), 15)
+            }
+          }
+          .onEnded { _ in
+            withAnimation(.easeOut(duration: 0.5)) {
+              vertical = 0
+              horizontal = 0
+            }
+          }
+      )
     }
 }
 

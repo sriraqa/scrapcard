@@ -2,6 +2,8 @@
 
 Mobile app project to help people reflect and maintain meaningful relationships online
 
+[Backend Repo](https://github.com/sriraqa/scrapcard-backend)
+
 (Design Concept)
 
 <img width="1000" height="563" alt="image" src="https://github.com/user-attachments/assets/1cb9c0da-aba9-482f-a560-6b9d45d9fb3b" />

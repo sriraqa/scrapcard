@@ -38,8 +38,16 @@ struct Scrapcard: View {
           .stroke(Color.textPrimary, lineWidth: 1)
           .frame(width: 64, height: 64)
       }
-      VStack(spacing: 4) {
+      ZStack {
+        VStack(spacing: 20) {
+          Line()
+          Line()
+          Line()
+          Line()
+          Line()
+        }
         TextEditor(text: $text)
+          .transparentScrolling()
           .font(Font.custom("Sen-Regular", size: 20))
           .focused($textFieldFocused)
           .onSubmit {
@@ -47,7 +55,6 @@ struct Scrapcard: View {
           }
           .textInputAutocapitalization(.never)
           .disableAutocorrection(true)
-        Line()
       }
       Spacer()
       Text("SCRAPCARD")
@@ -76,5 +83,17 @@ struct Scrapcard: View {
           }
         }
     )
+  }
+}
+
+public extension View {
+  func transparentScrolling() -> some View {
+    if #available(iOS 16.0, *) {
+      return scrollContentBackground(.hidden)
+    } else {
+      return onAppear {
+          UITextView.appearance().backgroundColor = .clear
+      }
+    }
   }
 }

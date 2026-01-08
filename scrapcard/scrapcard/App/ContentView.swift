@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+  @State private var text: String = ""
+  
     var body: some View {
         VStack {
-          Scrapcard(date: Date(), text: "test text")
+          Scrapcard(date: Date(), text: $text)
         }
         .padding()
     }

@@ -38,16 +38,18 @@ struct Scrapcard: View {
           .stroke(Color.textPrimary, lineWidth: 1)
           .frame(width: 64, height: 64)
       }
-      ZStack {
-        VStack(spacing: 20) {
+      ZStack(alignment: .top) {
+        VStack(spacing: 32) {
           Line()
           Line()
           Line()
           Line()
           Line()
         }
+        .padding([.top], 32)
         TextEditor(text: $text)
           .transparentScrolling()
+          .lineSpacing(8)
           .font(Font.custom("Sen-Regular", size: 20))
           .focused($textFieldFocused)
           .onSubmit {

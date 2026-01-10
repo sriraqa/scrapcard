@@ -18,7 +18,7 @@ class APIService {
   static let shared = APIService()
   private init() {}
   
-  private let url = "http://localhost:5050"
+  private let baseURL = "http://localhost:5050"
   
   func request<T: Decodable>(
     endpoint: String,
@@ -26,7 +26,7 @@ class APIService {
     body: Encodable? = nil,
     completion: @escaping (Result<T, Error>) -> Void
   ) {
-    guard let url = URL(string: "\(url)\(endpoint)") else {
+    guard let url = URL(string: "\(baseURL)\(endpoint)") else {
       completion(.failure(NSError(domain: "Invalid URL", code: 0)))
       return
     }
@@ -36,31 +36,31 @@ class APIService {
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
     if let body = body {
-                do {
-                    request.httpBody = try JSONEncoder().encode(body)
-                } catch {
-                    completion(.failure(error))
-                    return
-                }
-            }
-            
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let data = data else {
-                    completion(.failure(NSError(domain: "No data", code: 0)))
-                    return
-                }
-                
-                do {
-                    let decoded = try JSONDecoder().decode(T.self, from: data)
-                    completion(.success(decoded))
-                } catch {
-                    completion(.failure(error))
-                }
-            }.resume()
+      do {
+        request.httpBody = try JSONEncoder().encode(body)
+      } catch {
+        completion(.failure(error))
+        return
+      }
+    }
+    
+    URLSession.shared.dataTask(with: request) { data, response, error in
+      if let error = error {
+        completion(.failure(error))
+        return
+      }
+      
+      guard let data = data else {
+        completion(.failure(NSError(domain: "No data", code: 0)))
+        return
+      }
+      
+      do {
+        let decoded = try JSONDecoder().decode(T.self, from: data)
+        completion(.success(decoded))
+      } catch {
+        completion(.failure(error))
+      }
+    }.resume()
   }
 }

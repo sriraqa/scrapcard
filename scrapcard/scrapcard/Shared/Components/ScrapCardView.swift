@@ -39,14 +39,13 @@ struct Scrapcard: View {
           .frame(width: 64, height: 64)
       }
       ZStack(alignment: .top) {
-        VStack(spacing: 32) {
-          Line()
-          Line()
-          Line()
-          Line()
-          Line()
+        VStack(spacing: 23) {
+          ForEach(0..<7, id: \.self) { _ in
+            Line()
+              .padding([.top, .bottom], 4)
+          }
         }
-        .padding([.top], 32)
+        .padding([.top], 28)
         TextEditor(text: $text)
           .transparentScrolling()
           .lineSpacing(8)

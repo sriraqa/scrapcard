@@ -27,6 +27,21 @@ struct Scrapcard: View {
   
   var body: some View {
     VStack(spacing: 16) {
+      AsyncImage(url: URL(string: "")) { image in
+        image
+          .resizable()
+          .aspectRatio(4/3, contentMode: .fill)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+      } placeholder: {
+        Image("exampleImg")
+          .resizable()
+          .aspectRatio(4/3, contentMode: .fill)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+      }
+      .frame(maxWidth: .infinity)
+      .clipShape(RoundedRectangle(cornerRadius: 8))
+      .clipped()
+
       HStack(alignment: .top, spacing: 0) {
         VStack(alignment: .leading, spacing: 4) {
           Text(date.formattedMMddyyyy())
@@ -40,7 +55,7 @@ struct Scrapcard: View {
       }
       ZStack(alignment: .top) {
         VStack(spacing: 23) {
-          ForEach(0..<7, id: \.self) { _ in
+          ForEach(0..<4, id: \.self) { _ in
             Line()
               .padding([.top, .bottom], 4)
           }

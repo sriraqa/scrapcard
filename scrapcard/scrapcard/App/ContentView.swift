@@ -22,12 +22,12 @@ struct ContentView: View {
   @State private var isLoading = false
   @State private var statusMessage: String?
   
-  func onSave() -> Void {
+  func onSave(currText: String) -> Void {
     isLoading = true
     statusMessage = nil
 
     let payload = ShareRequest(
-      text: text,
+      text: currText,
       date: Date()
     )
 
@@ -55,15 +55,15 @@ struct ContentView: View {
   var body: some View {
     VStack(spacing: 16) {
       Scrapcard(date: Date(), text: $text)
-      Button(action: onSave) {
+      Button(action: { onSave(currText: text) }) {
         Label("Share", systemImage: "paperplane.fill")
           .bold()
-          .frame(maxWidth: .infinity)   // take full width
+          .frame(maxWidth: .infinity)
           .padding()
           .foregroundStyle(.white)
           .background(
               RoundedRectangle(cornerRadius: 8, style: .continuous)
-                  .fill(Color.blue)
+                .fill(Color.textPrimary)
           )
       }
     }

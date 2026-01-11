@@ -27,6 +27,7 @@ struct Scrapcard: View {
   
   var body: some View {
     VStack(spacing: 16) {
+      //TODO: Connect with backend for real image
       AsyncImage(url: URL(string: "")) { image in
         image
           .resizable()
@@ -48,11 +49,12 @@ struct Scrapcard: View {
             .font(Font.custom("Sen-Regular", size: 20))
           Line()
         }
-        //          Profile image
+        // TODO: Profile image
         Rectangle()
           .stroke(Color.textPrimary, lineWidth: 1)
           .frame(width: 64, height: 64)
       }
+      
       ZStack(alignment: .top) {
         VStack(spacing: 23) {
           ForEach(0..<4, id: \.self) { _ in
@@ -73,6 +75,8 @@ struct Scrapcard: View {
           .disableAutocorrection(true)
       }
       Spacer()
+      
+      // Watermark
       Text("SCRAPCARD")
         .font(Font.custom("Sen-Regular", size: 14))
     }

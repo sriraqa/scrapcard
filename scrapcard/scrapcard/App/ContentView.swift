@@ -55,6 +55,8 @@ struct ContentView: View {
   var body: some View {
     VStack(spacing: 16) {
       Scrapcard(date: Date(), text: $text)
+      
+      //Temp button to show mock endpoint call
       Button(action: { onSave(currText: text) }) {
         Label("Share", systemImage: "paperplane.fill")
           .bold()

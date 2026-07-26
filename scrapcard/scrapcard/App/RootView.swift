@@ -13,7 +13,7 @@ struct RootView: View {
           ContentView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.blueLight)
+        .background(Color.background)
         .ignoresSafeArea()
     }
 }

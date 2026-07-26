@@ -26,6 +26,22 @@ struct Scrapcard: View {
   }
   
   var body: some View {
+    let limitedText = Binding<String>(
+        get: { self.text },
+        set: { newValue in
+            let lineCount = newValue.components(separatedBy: .newlines).count
+            
+            if lineCount <= 4 {
+                let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                if trimmed.isEmpty {
+                    self.text = ""
+                } else {
+                    self.text = newValue
+                }
+            }
+        }
+    )
+    
     VStack(spacing: 16) {
       //TODO: Connect with backend for real image
       AsyncImage(url: URL(string: "")) { image in
@@ -63,14 +79,15 @@ struct Scrapcard: View {
           }
         }
         .padding([.top], 28)
-        TextEditor(text: $text)
+        TextEditor(text: limitedText)
           .transparentScrolling()
           .lineSpacing(8)
           .font(Font.custom("Sen-Regular", size: 20))
           .focused($textFieldFocused)
           .onSubmit {
-            validate(newText: text)
+            validate(newText: self.text)
           }
+          .lineLimit(4, reservesSpace: true)
           .textInputAutocapitalization(.never)
           .disableAutocorrection(true)
       }

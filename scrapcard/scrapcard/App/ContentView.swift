@@ -18,64 +18,19 @@ struct ShareResponse: Decodable {
 }
 
 struct ContentView: View {
-  @State private var text: String = ""
-  @State private var isLoading = false
-  @State private var statusMessage: String?
-  @State private var tabConfig: FlexibleTabbar.Config = .init(activeTab: 0)
-  
-  func onSave(currText: String) -> Void {
-    isLoading = true
-    statusMessage = nil
-
-    let payload = ShareRequest(
-      text: currText,
-      date: Date()
-    )
-
-    APIService.shared.request(
-      endpoint: "/share", // mock endpoint
-      method: .POST,
-      body: payload
-    ) { (result: Result<ShareResponse, Error>) in
-      DispatchQueue.main.async {
-        isLoading = false
-        
-        switch result {
-        case .success(let response):
-          statusMessage = response.message
-          print(response)
-          
-        case .failure(let error):
-          statusMessage = "Failed to share"
-          print(error)
-        }
-      }
-    }
-  }
+  @State private var selectedTab: Tab = .inbox
   
   var body: some View {
     ZStack(alignment: .bottom) {
-      FlexibleTabbar(tabs: [
-        .init(symbol: "house"),
-        .init(symbol: "book"),
-        .init(symbol: "person")
-      ], config: $tabConfig)
-      VStack(spacing: 16) {
-        //Temp button to show mock endpoint call
-        Button(action: { onSave(currText: text) }) {
-          Label("Share", systemImage: "paperplane.fill")
-            .bold()
-            .frame(maxWidth: .infinity)
-            .padding()
-            .foregroundStyle(.white)
-            .background(
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                  .fill(Color.textPrimary)
-            )
-        }
-        Scrapcard(date: Date(), text: $text)
-      }
-      .padding()
+      // Main content based on active tab
+      DraftView()
+        .padding(.horizontal)
+        .padding(.bottom)
+      
+      // Floating Rounded Tab Bar
+      CustomTabBar(selectedTab: $selectedTab)
+        .padding(.horizontal)
+        .padding(.bottom, 8)
     }
   }
 }

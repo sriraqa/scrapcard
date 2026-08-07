@@ -23,9 +23,15 @@ struct ContentView: View {
   var body: some View {
     ZStack(alignment: .bottom) {
       // Main content based on active tab
-      DraftView()
-        .padding(.horizontal)
-        .padding(.bottom)
+      if (selectedTab == .inbox) {
+        InboxView()
+          .padding(.horizontal)
+          .padding(.bottom)
+      } else {
+        DraftView()
+          .padding(.horizontal)
+          .padding(.bottom)
+      }
       
       // Floating Rounded Tab Bar
       CustomTabBar(selectedTab: $selectedTab)

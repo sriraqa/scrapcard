@@ -15,9 +15,9 @@ enum Tab: String, CaseIterable {
     
     var iconName: String {
         switch self {
-        case .inbox: return "tray"
-        case .book: return "book"
-        case .profile: return "person"
+          case .inbox: return "tray"
+          case .book: return "book"
+          case .profile: return "person"
         }
     }
 }

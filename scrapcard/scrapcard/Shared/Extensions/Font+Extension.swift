@@ -8,9 +8,23 @@
 import SwiftUI
 
 extension Font {
-    static let h1 = Font.system(size: 32, weight: .bold)
-    static let h2 = Font.system(size: 24, weight: .semibold)
-    static let body = Font.system(size: 16, weight: .regular)
-    static let caption = Font.system(size: 12, weight: .light)
-}
+    static func senRegular(size: CGFloat) -> Font {
+        .custom("Sen-Regular", size: size)
+    }
 
+    static func senMedium(size: CGFloat) -> Font {
+        .custom("Sen-Medium", size: size)
+    }
+
+    static func senSemiBold(size: CGFloat) -> Font {
+        .custom("Sen-SemiBold", size: size)
+    }
+
+    static func senBold(size: CGFloat) -> Font {
+        .custom("Sen-Bold", size: size)
+    }
+
+    static func senExtraBold(size: CGFloat) -> Font {
+        .custom("Sen-ExtraBold", size: size)
+    }
+}

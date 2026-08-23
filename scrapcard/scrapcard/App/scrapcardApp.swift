@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct scrapcardApp: App {
+struct ScrapcardApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()

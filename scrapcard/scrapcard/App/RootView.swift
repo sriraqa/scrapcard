@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct RootView: View {
+    @EnvironmentObject private var authSession: AuthSession
+
     var body: some View {
-        VStack {
-          ContentView()
+        Group {
+            if authSession.isAuthenticated {
+                ContentView()
+            } else {
+                AuthView()
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
@@ -19,4 +25,5 @@ struct RootView: View {
 
 #Preview {
     RootView()
+        .environmentObject(AuthSession())
 }

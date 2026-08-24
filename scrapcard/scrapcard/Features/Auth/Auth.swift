@@ -88,6 +88,19 @@ final class AuthSession: ObservableObject {
         isLoading = false
     }
 
+    #if DEBUG
+    func signInAsDeveloper() {
+        tokenStore.accessToken = "dev-access-token"
+        tokenStore.refreshToken = "dev-refresh-token"
+        user = AuthenticatedUser(
+            id: "dev-user",
+            email: "qiaosarah8@gmail.com",
+            fullName: "Dev User"
+        )
+        errorMessage = nil
+    }
+    #endif
+
     func signOut() {
         tokenStore.clear()
         user = nil
@@ -138,6 +151,13 @@ struct AuthView: View {
             .frame(height: 52)
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .disabled(authSession.isLoading)
+
+            #if DEBUG
+            PrimaryButton(title: "Continue as Dev User") {
+                authSession.signInAsDeveloper()
+            }
+            .disabled(authSession.isLoading)
+            #endif
 
             if authSession.isLoading {
                 ProgressView()

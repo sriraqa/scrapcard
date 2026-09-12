@@ -30,7 +30,7 @@ struct CharacterOrbitView: View {
     let characterName: String
     let stickerNames: [String]
 
-    private let animationDuration = 5.0
+    private let animationDuration = 3.0
     private let settleRotation = Double.pi * 4
     private let totalStickerCount = 10
     private let startDate = Date()
